@@ -1,0 +1,5 @@
+SELECT DISTINCT l0.num ConsecutiveNums
+FROM Logs l0
+     INNER JOIN Logs l1 ON l0.id + 1 = l1.id
+     INNER JOIN Logs l2 ON l0.id + 2 = l2.id
+WHERE l0.num = l1.num AND l0.num = l2.num
