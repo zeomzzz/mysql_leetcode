@@ -1,5 +1,27 @@
+-- JOIN 풀이
 SELECT DISTINCT l0.num ConsecutiveNums
 FROM Logs l0
      INNER JOIN Logs l1 ON l0.id + 1 = l1.id
      INNER JOIN Logs l2 ON l0.id + 2 = l2.id
 WHERE l0.num = l1.num AND l0.num = l2.num
+
+-- Window 함수 풀이
+-- LEAD 풀이
+SELECT DISTINCT n0 ConsecutiveNums
+FROM (
+    SELECT num n0
+         , LEAD(num) OVER (ORDER BY id) n1
+         , LEAD(num, 2) OVER (ORDER BY id) n2
+    FROM Logs
+) Logs_con
+WHERE Logs_con.n0 = Logs_con.n1 AND Logs_con.n0 = Logs_con.n2
+
+-- LAG 풀이
+SELECT DISTINCT n0 ConsecutiveNums
+FROM (
+    SELECT num n0
+         , LAG(num) OVER (ORDER BY id) n1
+         , LAG(num, 2) OVER (ORDER BY id) n2
+    FROM Logs
+) Logs_con
+WHERE Logs_con.n0 = Logs_con.n1 AND Logs_con.n0 = Logs_con.n2
