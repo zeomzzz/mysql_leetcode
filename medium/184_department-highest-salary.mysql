@@ -14,9 +14,15 @@ FROM Employee e1
 
 
 -- Window function
-SELECT Id
-     , Name
-     , kg
-     , Line
-     , SUM(kg) OVER (Order by Line Partition By Id) AS CumSum
-FROM Elevator
+SELECT ms.Department
+     , ms.name Employee
+     , ms.Salary
+FROM (
+    SELECT Employee.name
+         , Employee.salary
+         , Department.name Department
+         , MAX(salary) OVER (PARTITION BY departmentId) MAX_Salary
+    FROM Employee
+         INNER JOIN Department ON Employee.departmentId = Department.id
+    ) ms
+WHERE ms.Salary = ms.Max_Salary
