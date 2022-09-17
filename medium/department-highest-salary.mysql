@@ -1,3 +1,4 @@
+-- JOIN 풀이
 SELECT Department.name Department
       , e1.name Employee
       , e1.Salary Salary
@@ -10,3 +11,12 @@ FROM Employee e1
          ) e2 ON e1.departmentId = e2.departmentID
          AND e1.salary = e2.max_salary
     INNER JOIN Department ON e1.departmentId = Department.id
+
+
+-- Window function
+SELECT Id
+     , Name
+     , kg
+     , Line
+     , SUM(kg) OVER (Order by Line Partition By Id) AS CumSum
+FROM Elevator
