@@ -1,6 +1,6 @@
-SELECT Users.name AS name
-     , SUM(Transactions.amount) AS balance
-FROM Users
-     INNER JOIN Transactions ON Users.account = Transactions.account
-GROUP BY Users.name
+SELECT u.name
+     , SUM(t.amount) AS balance
+FROM Users u
+     INNER JOIN Transactions t ON u.account = t.account
+GROUP BY u.name
 HAVING balance > 10000
