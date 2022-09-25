@@ -10,7 +10,7 @@ SELECT Tree.id
      , CASE
             WHEN Tree.p_id IS NULL THEN 'Root'
             WHEN Tree.p_id IS NOT NULL AND Child.child_cnt IS NOT NULL THEN 'Inner'
-            ELSE 'Leaf'
+            WHEN Tree.p_id IS NOT NULL AND Child.child_cnt IS NULL THEN 'Leaf'
         END type
 FROM Tree
      LEFT JOIN Child ON Tree.id = Child.p_id
